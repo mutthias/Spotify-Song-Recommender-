@@ -10,9 +10,12 @@ function App() {
   const AUTH_ENDPOINT = process.env.REACT_APP_AUTH_ENDPOINT;
   const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE;
 
-  const [token, setToken] = useState("");
-  const [searchKey, setSearchKey] = useState("");
+  const [token, setToken] = useState("")
+  const [searchKey, setSearchKey] = useState("")
   const [artists, setArtists] = useState([])
+  const [tracks, setTracks] = useState([])
+
+  const search_display = !!token
 
   useEffect(() => {
     const hash = window.location.hash 
@@ -34,6 +37,23 @@ function App() {
     window.localStorage.removeItem("token")
   }
 
+  const searchTracks = async (e) => {
+    e.preventDefault()
+    const {data} = await axios.get("https://api.spotify.com/v1/search", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      params: {
+        q: searchKey,
+        type: "track",
+        limit: 20
+      }
+    })
+    const tracksData = data.tracks.items; // Access tracks from data.tracks.items
+    setTracks(tracksData); // Set the tracks state
+    console.log(tracksData);
+  }
+
   const searchArtists = async (e) => {
     e.preventDefault()
     const {data} = await axios.get("https://api.spotify.com/v1/search", {
@@ -49,6 +69,14 @@ function App() {
     console.log(data)
   }
 
+  const renderTracks = () => {
+    return tracks.map(track => (
+      <div key={track.id}>
+        {track.album.images.length ? <img width={'20%'}src={track.album.images[0].url} alt=''/> : <div>No Image</div> }
+        {track.name}
+      </div>
+    ))
+  }
   const renderArtists = () => {
     return artists.map(artist => (
       <div key={artist.id}>
@@ -66,17 +94,19 @@ function App() {
       : <button onClick={logout}>Logout</button> }
 
       {token ?
-      <form onSubmit={searchArtists}>
-        <input type='text' onChange={e => setSearchKey(e.target.value)}/>
-        <button type={'submit'}>Search</button>
-      </form>
+      <div>
+        <form onSubmit={searchTracks}>
+          <input type='text' onChange={e => setSearchKey(e.target.value)}/>
+          <button type={'submit'} disabled={!searchKey.trim()}>Search</button>
+          {renderTracks()}
+        </form>
+      </div>
       : <p>Please Login</p>
       }
 
-      {renderArtists()}
+      
 
     </div>
   );
 }
-
 export default App;
