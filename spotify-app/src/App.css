@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+.overlay {
+  .gif-container {
+    position: relative;
+    width: 50vw; /* Adjust as needed */
+    height: 100vh; /* Adjust as needed */
+    overflow: hidden;
+  }
+  
+  .gif-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust the opacity value (0.6) as desired */
+    z-index: 1;
+  }
+}

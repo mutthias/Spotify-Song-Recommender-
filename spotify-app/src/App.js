@@ -1,41 +1,50 @@
 import axios from 'axios';
-import logo from './logo.svg';
 import { useEffect, useState } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Navbar from './Components/Navbar';
+import Homepage from './Pages/Homepage';
+
+
 
 
 function App() {
+
+  // API Processing
   const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const AUTH_ENDPOINT = process.env.REACT_APP_AUTH_ENDPOINT;
   const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE;
 
+  // State sets
   const [token, setToken] = useState("")
   const [searchKey, setSearchKey] = useState("")
   const [artists, setArtists] = useState([])
   const [tracks, setTracks] = useState([])
+  const [] = useState([])
 
+  // Only true if a token exists. Otherwise nothing will display 
   const search_display = !!token
 
+  // Log the user in. Grab the token from the URL
   useEffect(() => {
     const hash = window.location.hash 
     let token = window.localStorage.getItem("token")
 
     if (!token && hash) {
       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-      
       window.location.hash = ""
       window.localStorage.setItem("token", token)
-
     }
     setToken(token)
-  
   }, [])
 
   const logout = () => {
     setToken("")
     window.localStorage.removeItem("token")
   }
+
+  // ---------- SEARCH FUNCTIONS ----------
 
   const searchTracks = async (e) => {
     e.preventDefault()
@@ -53,7 +62,6 @@ function App() {
     setTracks(tracksData); // Set the tracks state
     console.log(tracksData);
   }
-
   const searchArtists = async (e) => {
     e.preventDefault()
     const {data} = await axios.get("https://api.spotify.com/v1/search", {
@@ -69,6 +77,7 @@ function App() {
     console.log(data)
   }
 
+  // ---------- RENDER FUNCTIONS ----------
   const renderTracks = () => {
     return tracks.map(track => (
       <div key={track.id}>
@@ -88,6 +97,8 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
+      <Homepage />
       <p>hi</p>
       {!token ?
       <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login</a>
@@ -103,9 +114,6 @@ function App() {
       </div>
       : <p>Please Login</p>
       }
-
-      
-
     </div>
   );
 }
