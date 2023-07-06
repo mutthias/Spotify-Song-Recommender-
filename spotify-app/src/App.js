@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Navbar from './Components/Navbar';
 import Homepage from './Pages/Homepage';
 
 
@@ -97,9 +96,9 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
       <Homepage />
       <p>hi</p>
+      
       {!token ?
       <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login</a>
       : <button onClick={logout}>Logout</button> }
