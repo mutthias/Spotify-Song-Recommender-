@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homepage from './Pages/Homepage';
-
-
-
+import Navbar from './Components/Navbar';
 
 function App() {
 
@@ -20,6 +18,8 @@ function App() {
   const [searchKey, setSearchKey] = useState("")
   const [artists, setArtists] = useState([])
   const [tracks, setTracks] = useState([])
+  // const [recs, setRecs] = useState([])
+  const [trackFeatures, setTrackFeatures] = useState(null);
   const [] = useState([])
 
   // Only true if a token exists. Otherwise nothing will display 
@@ -44,6 +44,29 @@ function App() {
   }
 
   // ---------- SEARCH FUNCTIONS ----------
+  const searchRecs = async (e) => {
+    e.preventDefault();
+    if (!trackFeatures) {
+      return;
+    }
+    const {danceability, valence, energy} = trackFeatures;
+
+    const {data} = await axios.get(`https://api.spotify.com/v1/recommendations`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      params: {
+        seed_tracks: trackFeatures.id,
+        target_danceability: danceability,
+        target_valence: valence,
+        target_energy: energy,
+        limit: 20
+      }
+    })
+    const tracksData = data.recs.items; // Access tracks from data.tracks.items
+    // setRecs(tracksData); // Set the tracks state
+    console.log(tracksData);
+  }
 
   const searchTracks = async (e) => {
     e.preventDefault()
@@ -54,12 +77,29 @@ function App() {
       params: {
         q: searchKey,
         type: "track",
-        limit: 20
+        limit: 1
       }
     })
     const tracksData = data.tracks.items; // Access tracks from data.tracks.items
     setTracks(tracksData); // Set the tracks state
-    console.log(tracksData);
+    
+    if (tracksData.length > 0) {
+      const trackId = tracksData[0].id;
+      console.log(trackId)
+      console.log("hi")
+      const trackFeaturesResponse = await axios.get(`https://api.spotify.com/v1/audio-features/${trackId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+      const trackFeatures = trackFeaturesResponse.data
+      setTrackFeatures(trackFeatures);
+      console.log(trackFeatures);
+    }
+    
+
+    console.log("hi again")
+    console.log(data);
   }
   const searchArtists = async (e) => {
     e.preventDefault()
@@ -77,6 +117,14 @@ function App() {
   }
 
   // ---------- RENDER FUNCTIONS ----------
+  const renderRecs = () => {
+    return tracks.map(rec => (
+      <div key={rec.id}>
+        {rec.album.images.length ? <img width={'20%'}src={rec.album.images[0].url} alt=''/> : <div>No Image</div> }
+        {rec.name}
+      </div>
+    ))
+  }
   const renderTracks = () => {
     return tracks.map(track => (
       <div key={track.id}>
@@ -94,9 +142,17 @@ function App() {
     ))
   }
 
+  
   return (
-    <div className="App">
-      <Homepage />
+    <Router>
+      <div className='App'>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Homepage />}>
+          <Route path='/Home' element={<Homepage />} />
+        </Route>
+      </Routes>
+
       <p>hi</p>
       
       {!token ?
@@ -113,7 +169,8 @@ function App() {
       </div>
       : <p>Please Login</p>
       }
-    </div>
+      </div>
+    </Router>
   );
 }
 export default App;

@@ -1,12 +1,12 @@
 import './Homepage.css'
 import lofigirl from '../Images/lofigirl.gif'
-import Navbar from '../Components/Navbar';
+
 import React from 'react';
 
 function Homepage() {
   return (
     <div>
-      <Navbar />
+      
 
       <div className="gif-container">
         <div className="overlay"></div>
