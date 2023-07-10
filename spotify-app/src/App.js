@@ -18,7 +18,7 @@ function App() {
   const [searchKey, setSearchKey] = useState("")
   const [artists, setArtists] = useState([])
   const [tracks, setTracks] = useState([])
-  // const [recs, setRecs] = useState([])
+  const [recs, setRecs] = useState([])
   const [trackFeatures, setTrackFeatures] = useState(null);
   const [] = useState([])
 
@@ -44,30 +44,6 @@ function App() {
   }
 
   // ---------- SEARCH FUNCTIONS ----------
-  const searchRecs = async (e) => {
-    e.preventDefault();
-    if (!trackFeatures) {
-      return;
-    }
-    const {danceability, valence, energy} = trackFeatures;
-
-    const {data} = await axios.get(`https://api.spotify.com/v1/recommendations`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      params: {
-        seed_tracks: trackFeatures.id,
-        target_danceability: danceability,
-        target_valence: valence,
-        target_energy: energy,
-        limit: 20
-      }
-    })
-    const tracksData = data.recs.items; // Access tracks from data.tracks.items
-    // setRecs(tracksData); // Set the tracks state
-    console.log(tracksData);
-  }
-
   const searchTracks = async (e) => {
     e.preventDefault()
     const {data} = await axios.get("https://api.spotify.com/v1/search", {
@@ -95,11 +71,38 @@ function App() {
       const trackFeatures = trackFeaturesResponse.data
       setTrackFeatures(trackFeatures);
       console.log(trackFeatures);
-    }
-    
 
-    console.log("hi again")
-    console.log(data);
+      const {
+        acousticness, 
+        danceability,
+        energy,
+        instrumentalness,
+        loudness,
+        tempo,
+        valence
+      } = trackFeatures;
+      
+      const RecResponse = await axios.get("https://api.spotify.com/v1/recommendations", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          seed_tracks: trackId,
+          target_acousticness: acousticness,
+          target_danceability: danceability,
+          target_energy: energy,
+          target_instrumentalness: instrumentalness,
+          target_loudness: loudness,
+          target_tempo: tempo,
+          target_valence: valence,
+          limit: 20,
+        },
+      });
+
+      const recs = RecResponse.data.tracks;
+      setRecs(recs);
+      console.log(recs);
+    }
   }
   const searchArtists = async (e) => {
     e.preventDefault()
@@ -118,7 +121,7 @@ function App() {
 
   // ---------- RENDER FUNCTIONS ----------
   const renderRecs = () => {
-    return tracks.map(rec => (
+    return recs.map(rec => (
       <div key={rec.id}>
         {rec.album.images.length ? <img width={'20%'}src={rec.album.images[0].url} alt=''/> : <div>No Image</div> }
         {rec.name}
@@ -133,6 +136,7 @@ function App() {
       </div>
     ))
   }
+  
   const renderArtists = () => {
     return artists.map(artist => (
       <div key={artist.id}>
@@ -164,7 +168,7 @@ function App() {
         <form onSubmit={searchTracks}>
           <input type='text' onChange={e => setSearchKey(e.target.value)}/>
           <button type={'submit'} disabled={!searchKey.trim()}>Search</button>
-          {renderTracks()}
+          {renderRecs()}
         </form>
       </div>
       : <p>Please Login</p>
