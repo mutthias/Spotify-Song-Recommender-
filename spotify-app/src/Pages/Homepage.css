@@ -39,10 +39,7 @@ html, body {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding-left: 20em;
-  padding-right: 20em;
-  padding-top: 5em;
-  padding-bottom: 5em;
+  padding: 5em 20%;
 }
 .About p {
   text-align: left;
