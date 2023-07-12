@@ -43,67 +43,106 @@ function App() {
     window.localStorage.removeItem("token")
   }
 
+  const getRandomValue = (originalValue, tolerance) => {
+    const min = originalValue - tolerance;
+    const max = originalValue + tolerance;
+    return Math.random() * (max - min) + min;
+  };
+
   // ---------- SEARCH FUNCTIONS ----------
+  let lastSearchTrackId = null;
+let previousRecs = [];
+
   const searchTracks = async (e) => {
-    e.preventDefault()
-    const {data} = await axios.get("https://api.spotify.com/v1/search", {
+    e.preventDefault();
+    
+    const offset = 0.05;
+    const { data } = await axios.get("https://api.spotify.com/v1/search", {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       params: {
         q: searchKey,
         type: "track",
-        limit: 1
-      }
-    })
+        limit: 1,
+      },
+    });
+
     const tracksData = data.tracks.items; // Access tracks from data.tracks.items
     setTracks(tracksData); // Set the tracks state
-    
+
     if (tracksData.length > 0) {
       const trackId = tracksData[0].id;
-      console.log(trackId)
-      console.log("hi")
-      const trackFeaturesResponse = await axios.get(`https://api.spotify.com/v1/audio-features/${trackId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-      });
-      const trackFeatures = trackFeaturesResponse.data
+      console.log(trackId);
+      console.log("hi");
+
+      const trackFeaturesResponse = await axios.get(
+        `https://api.spotify.com/v1/audio-features/${trackId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const trackFeatures = trackFeaturesResponse.data;
       setTrackFeatures(trackFeatures);
       console.log(trackFeatures);
 
-      const {
-        acousticness, 
+      let {
+        acousticness,
         danceability,
         energy,
         instrumentalness,
         loudness,
         tempo,
-        valence
+        valence,
       } = trackFeatures;
-      
-      const RecResponse = await axios.get("https://api.spotify.com/v1/recommendations", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          seed_tracks: trackId,
-          target_acousticness: acousticness,
-          target_danceability: danceability,
-          target_energy: energy,
-          target_instrumentalness: instrumentalness,
-          target_loudness: loudness,
-          target_tempo: tempo,
-          target_valence: valence,
-          limit: 20,
-        },
-      });
 
-      const recs = RecResponse.data.tracks;
-      setRecs(recs);
-      console.log(recs);
-    }
+      console.log(acousticness);
+
+      acousticness = getRandomValue(acousticness, 0.1);
+      danceability = getRandomValue(danceability, 0.1);
+      energy = getRandomValue(energy, 0.1);
+      instrumentalness = getRandomValue(instrumentalness, 0.1);
+      loudness = getRandomValue(loudness, 5);
+      tempo = getRandomValue(tempo, 50);
+      valence = getRandomValue(valence, 0.1);
+
+      console.log(acousticness);
+
+      const RecResponse = await axios.get(
+        "https://api.spotify.com/v1/recommendations",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            seed_tracks: trackId,
+            target_acousticness: acousticness,
+            target_danceability: danceability,
+            target_energy: energy,
+            target_instrumentalness: instrumentalness,
+            target_loudness: loudness,
+            target_tempo: tempo,
+            target_valence: valence,
+            limit: 10,
+          },
+        }
+      );
+
+    const recs = RecResponse.data.tracks.filter(
+      (track) => track.id !== trackId && !previousRecs.includes(track.id)
+    );
+
+    lastSearchTrackId = trackId;
+    previousRecs = [];
+
+    previousRecs = recs.map((track) => track.id);
+
+    setRecs(recs);
+    console.log(recs);
   }
+};
   const searchArtists = async (e) => {
     e.preventDefault()
     const {data} = await axios.get("https://api.spotify.com/v1/search", {
@@ -123,7 +162,7 @@ function App() {
   const renderRecs = () => {
     return recs.map(rec => (
       <div key={rec.id}>
-        {rec.album.images.length ? <img width={'20%'}src={rec.album.images[0].url} alt=''/> : <div>No Image</div> }
+        {rec.album.images.length ? <img width={'1%'}src={rec.album.images[0].url} alt=''/> : <div>No Image</div> }
         {rec.name}
       </div>
     ))

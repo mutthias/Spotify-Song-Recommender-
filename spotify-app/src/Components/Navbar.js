@@ -13,13 +13,13 @@ function Navbar() {
           <a href='/Home'>Home</a>
         </li>
         <li>
-          <a href='/Top-Artists'>Top Artists</a>
+          <a href='/About'>About</a>
         </li>
         <li>
           <a href='/Top-Tracks'>Top Tracks</a>
           </li>
         <li>
-          <a href='/Recommendations'>Get Recommendations</a>
+          <a href='/Top-Artists'>Top Artists</a>
         </li>
       </ul>
 
