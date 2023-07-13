@@ -4,6 +4,8 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homepage from './Pages/Homepage';
 import Navbar from './Components/Navbar';
+import SongCard from './Components/SongCard';
+
 
 function App() {
 
@@ -51,7 +53,7 @@ function App() {
 
   // ---------- SEARCH FUNCTIONS ----------
   let lastSearchTrackId = null;
-let previousRecs = [];
+  let previousRecs = [];
 
   const searchTracks = async (e) => {
     e.preventDefault();
@@ -161,9 +163,19 @@ let previousRecs = [];
   // ---------- RENDER FUNCTIONS ----------
   const renderRecs = () => {
     return recs.map(rec => (
-      <div key={rec.id}>
-        {rec.album.images.length ? <img width={'1%'}src={rec.album.images[0].url} alt=''/> : <div>No Image</div> }
-        {rec.name}
+      <div className='container'>
+
+        <div key={rec.id} className='songcard'>
+          {rec.album.images.length ? 
+          <img className='album_img' src={rec.album.images[0].url} alt=''/> 
+          : <div>No Image</div> }
+
+          <div className='song_info'>
+            <div className='song_name'>{rec.name}</div>
+            <div className='song_artists'>{rec.artists.map((artist) => artist.name).join(', ')}</div>
+          </div>
+          
+        </div>
       </div>
     ))
   }
@@ -197,7 +209,7 @@ let previousRecs = [];
       </Routes>
 
       <p>hi</p>
-      
+      <SongCard />
       {!token ?
       <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login</a>
       : <button onClick={logout}>Logout</button> }

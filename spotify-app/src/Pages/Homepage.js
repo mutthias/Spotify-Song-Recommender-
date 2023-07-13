@@ -14,7 +14,7 @@ function Homepage() {
       </div>
 
       <div className='About'>
-        <h1>What is this site for?</h1>
+        <h1>Site Usage</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
           Sed cursus faucibus mauris, vitae efficitur sem bibendum in. 
           Mauris sed tincidunt lorem. Sed non fringilla leo. 
