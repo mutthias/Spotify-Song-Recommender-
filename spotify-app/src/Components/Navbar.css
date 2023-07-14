@@ -43,3 +43,14 @@
   color: white;
   text-align: center;
 }
+
+.ProfileButton {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.pfp {
+  border-radius: 50%;
+}

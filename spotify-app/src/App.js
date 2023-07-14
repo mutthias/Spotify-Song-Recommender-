@@ -9,12 +9,6 @@ import SongCard from './Components/SongCard';
 
 function App() {
 
-  // API Processing
-  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const AUTH_ENDPOINT = process.env.REACT_APP_AUTH_ENDPOINT;
-  const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE;
-
   // State sets
   const [token, setToken] = useState("")
   const [searchKey, setSearchKey] = useState("")
@@ -162,22 +156,9 @@ function App() {
 
   // ---------- RENDER FUNCTIONS ----------
   const renderRecs = () => {
-    return recs.map(rec => (
-      <div className='container'>
-
-        <div key={rec.id} className='songcard'>
-          {rec.album.images.length ? 
-          <img className='album_img' src={rec.album.images[0].url} alt=''/> 
-          : <div>No Image</div> }
-
-          <div className='song_info'>
-            <div className='song_name'>{rec.name}</div>
-            <div className='song_artists'>{rec.artists.map((artist) => artist.name).join(', ')}</div>
-          </div>
-          
-        </div>
-      </div>
-    ))
+    return (
+      <SongCard recs = {recs}/>
+    )
   }
   const renderTracks = () => {
     return tracks.map(track => (
@@ -197,33 +178,21 @@ function App() {
     ))
   }
 
-  
   return (
     <Router>
       <div className='App'>
-      <Navbar />
+      <Navbar token={token} logout={logout}/>
       <Routes>
-        <Route path="/" element={<Homepage />}>
+        <Route path="/" element={<Homepage 
+          searchTracks={searchTracks} 
+          setSearchKey={setSearchKey}
+          searchKey={searchKey} 
+          renderRecs={renderRecs} 
+          />}>
           <Route path='/Home' element={<Homepage />} />
         </Route>
       </Routes>
-
-      <p>hi</p>
-      <SongCard />
-      {!token ?
-      <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login</a>
-      : <button onClick={logout}>Logout</button> }
-
-      {token ?
-      <div>
-        <form onSubmit={searchTracks}>
-          <input type='text' onChange={e => setSearchKey(e.target.value)}/>
-          <button type={'submit'} disabled={!searchKey.trim()}>Search</button>
-          {renderRecs()}
-        </form>
-      </div>
-      : <p>Please Login</p>
-      }
+      
       </div>
     </Router>
   );

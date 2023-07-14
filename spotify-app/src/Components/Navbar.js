@@ -1,7 +1,36 @@
+import axios from 'axios';
 import './Navbar.css'
 import React from 'react';
+import { useEffect, useState } from 'react';
 
-function Navbar() {
+const Navbar = ({ token, logout }) => {
+
+  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+  const AUTH_ENDPOINT = process.env.REACT_APP_AUTH_ENDPOINT;
+  const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE;
+  
+  const [pfp, setPFP] = useState("");
+  
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      if (token) {
+
+        const { data } = await axios.get('https://api.spotify.com/v1/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(data)
+        const pictureUrl = data.images[0].url;
+        setPFP(pictureUrl);
+
+      }
+    };
+
+    fetchProfilePicture();
+  }, [token]);
+
   return (
     <nav className='Nav'>
       <div className='Logo'>
@@ -24,7 +53,14 @@ function Navbar() {
       </ul>
 
       <div className='Profile'>
-        Login
+        {token && pfp ? (
+          <button className='ProfileButton' onClick={logout}>
+            <img className='pfp' src={pfp} alt='' />
+          </button>
+        ) : (
+          <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login</a>
+        )}
+
       </div>
     </nav>
   )

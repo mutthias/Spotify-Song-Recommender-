@@ -1,16 +1,25 @@
+import axios from 'axios';
 import './Homepage.css'
+import { useEffect, useState } from 'react';
+
 import lofigirl from '../Images/lofigirl.gif'
 
 import React from 'react';
 
-function Homepage() {
+const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs}) => {
   return (
     <div>
-      
-
+    
       <div className="gif-container">
         <div className="overlay"></div>
         <img src={lofigirl} alt="GIF"/>
+
+        <form className='search' onSubmit={searchTracks}>
+          <input type='text' onChange={e => setSearchKey(e.target.value)}/>
+          <button type={'submit'} disabled={!searchKey.trim()}>Search</button>
+          {renderRecs()}
+        </form>
+
       </div>
 
       <div className='About'>
