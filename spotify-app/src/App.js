@@ -52,7 +52,6 @@ function App() {
   const searchTracks = async (e) => {
     e.preventDefault();
     
-    const offset = 0.05;
     const { data } = await axios.get("https://api.spotify.com/v1/search", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -159,14 +158,6 @@ function App() {
     return (
       <SongCard recs = {recs}/>
     )
-  }
-  const renderTracks = () => {
-    return tracks.map(track => (
-      <div key={track.id}>
-        {track.album.images.length ? <img width={'20%'}src={track.album.images[0].url} alt=''/> : <div>No Image</div> }
-        {track.name}
-      </div>
-    ))
   }
   
   const renderArtists = () => {

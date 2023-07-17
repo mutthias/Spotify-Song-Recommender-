@@ -7,14 +7,20 @@
 html, body {
   height: 100%;
   margin: 0;
+
+
 }
 /* GIF CSS */
+.Homepage {
+  overflow-x: hidden;
+}
+
 .gif-container {
   flex: 1;
   position: relative;
   width: 100vw; /* Adjust as needed */
-  height: 80vh; /* Adjust as needed */
-  overflow: hidden;
+  height: 100vh; /* Adjust as needed */
+  
 }
 .gif-container img {
   width: 100%;
@@ -30,15 +36,6 @@ html, body {
   background-color: rgba(0, 0, 0, 0.6); /* Adjust the opacity value (0.6) as desired */
 }
 
-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-}
-
 /* ABOUT CSS */
 .About {
   background-color: #F3E9D2;
@@ -51,4 +48,48 @@ form {
 }
 .About p {
   text-align: left;
+}
+
+form {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.search_bar {
+  width: 37.5em;
+  height: 3.125em;
+  border-radius: 25px;
+  border: 0;
+  padding-right: 3.125em;
+  background-color: #F3E9D2;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.search_button {
+  position: absolute;
+  right: 0;
+  /* top: 0; */
+  height: 100%;
+  width: 5em; 
+  background-color: #88D498;
+  color: #fff;
+  border: 0;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search_button:hover {
+  background-color: #1A936F;
+
 }

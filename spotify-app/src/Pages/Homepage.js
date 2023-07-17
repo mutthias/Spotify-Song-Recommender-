@@ -1,6 +1,8 @@
 import axios from 'axios';
 import './Homepage.css'
+import { FaSearch } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
+
 
 import lofigirl from '../Images/lofigirl.gif'
 
@@ -8,15 +10,15 @@ import React from 'react';
 
 const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs}) => {
   return (
-    <div>
+    <div className='Homepage'>
     
       <div className="gif-container">
         <div className="overlay"></div>
         <img src={lofigirl} alt="GIF"/>
 
         <form className='search' onSubmit={searchTracks}>
-          <input type='text' onChange={e => setSearchKey(e.target.value)}/>
-          <button type={'submit'} disabled={!searchKey.trim()}>Search</button>
+          <input placeholder='Search for any song...' className='search_bar' type='text' onChange={e => setSearchKey(e.target.value)}/>
+          <button className='search_button' type={'submit'} disabled={!searchKey.trim()}><FaSearch color="#fff" size={20}/></button>
           {renderRecs()}
         </form>
 
