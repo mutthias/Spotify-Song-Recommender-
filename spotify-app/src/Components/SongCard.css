@@ -7,9 +7,9 @@
 
 .songcard {
   background-color: #114B5F;
-  width: 54.375rem; 
-  height: 4.5rem;
-  border-radius: 50px;
+  width: 37.5em;
+  height: 4em;
+  border-radius: 25px;
   display: flex;
   align-items: center;
 }
@@ -17,8 +17,11 @@
 .album_img {
   margin-left: 32px;
   justify-content: center;
-  width: 6%;
   border-radius: 3px;
+}
+
+.album_img img {
+  width: 50%;
 }
 
 .song_info {

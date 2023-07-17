@@ -19,7 +19,9 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs}) => {
         <form className='search' onSubmit={searchTracks}>
           <input placeholder='Search for any song...' className='search_bar' type='text' onChange={e => setSearchKey(e.target.value)}/>
           <button className='search_button' type={'submit'} disabled={!searchKey.trim()}><FaSearch color="#fff" size={20}/></button>
-          {renderRecs()}
+          <div className="results">
+            {renderRecs()}
+          </div>
         </form>
 
       </div>

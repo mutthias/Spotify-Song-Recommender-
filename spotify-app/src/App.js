@@ -120,7 +120,7 @@ function App() {
             target_loudness: loudness,
             target_tempo: tempo,
             target_valence: valence,
-            limit: 10,
+            limit: 5,
           },
         }
       );

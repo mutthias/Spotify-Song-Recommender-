@@ -54,9 +54,11 @@ form {
   position: absolute;
   top: 30%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%); /* Center horizontally */
   display: flex;
-  align-items: center;
+
+  align-items: flex-start; /* Change align-items to flex-start */
+  flex-direction: column; /* Update to column direction */
 }
 
 .search {
@@ -69,7 +71,7 @@ form {
   height: 3.125em;
   border-radius: 25px;
   border: 0;
-  padding-right: 3.125em;
+  /* padding-right: 3.125em; */
   background-color: #F3E9D2;
   padding-left: 20px;
   font-size: 15px;
@@ -78,9 +80,8 @@ form {
 .search_button {
   position: absolute;
   right: 0;
-  /* top: 0; */
-  height: 100%;
-  width: 5em; 
+  height: 3.64em;
+  width: 5em;
   background-color: #88D498;
   color: #fff;
   border: 0;
@@ -91,5 +92,13 @@ form {
 
 .search_button:hover {
   background-color: #1A936F;
+}
 
+.results {
+  padding-top: 16px;
+}
+
+.results img {
+  width: 9%;
+  height: 80%;
 }
