@@ -15,8 +15,10 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs}) => {
       <div className="gif-container">
         <div className="overlay"></div>
         <img src={lofigirl} alt="GIF"/>
+        
 
         <form className='search' onSubmit={searchTracks}>
+        <div className="search-text">Enter any tracks, instantly get others similar to it!</div>
           <input placeholder='Search for any song...' className='search_bar' type='text' onChange={e => setSearchKey(e.target.value)}/>
           <button className='search_button' type={'submit'} disabled={!searchKey.trim()}><FaSearch color="#fff" size={20}/></button>
           <div className="results">
