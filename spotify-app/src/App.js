@@ -46,7 +46,6 @@ function App() {
   };
 
   // ---------- SEARCH FUNCTIONS ----------
-  let lastSearchTrackId = null;
   let previousRecs = [];
 
   const searchTracks = async (e) => {
@@ -64,6 +63,7 @@ function App() {
     });
 
     const tracksData = data.tracks.items; // Access tracks from data.tracks.items
+    console.log(tracksData)
     setTracks(tracksData); // Set the tracks state
 
     if (tracksData.length > 0) {
@@ -93,8 +93,6 @@ function App() {
         valence,
       } = trackFeatures;
 
-      console.log(acousticness);
-
       acousticness = getRandomValue(acousticness, 0.1);
       danceability = getRandomValue(danceability, 0.1);
       energy = getRandomValue(energy, 0.1);
@@ -102,8 +100,6 @@ function App() {
       loudness = getRandomValue(loudness, 5);
       tempo = getRandomValue(tempo, 50);
       valence = getRandomValue(valence, 0.1);
-
-      console.log(acousticness);
 
       const RecResponse = await axios.get(
         "https://api.spotify.com/v1/recommendations",
@@ -126,14 +122,14 @@ function App() {
       );
 
     const recs = RecResponse.data.tracks.filter(
-      (track) => track.id !== trackId && !previousRecs.includes(track.id)
+      (track) => track.id !== trackId && (!previousRecs.includes(track.id))
     );
 
-    lastSearchTrackId = trackId;
+    
     previousRecs = [];
 
     previousRecs = recs.map((track) => track.id);
-
+    console.log(previousRecs);
     setRecs(recs);
     console.log(recs);
   }

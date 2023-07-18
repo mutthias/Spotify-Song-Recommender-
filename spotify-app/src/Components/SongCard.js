@@ -1,7 +1,18 @@
 import React from 'react';
+import { useEffect } from 'react';
 import './SongCard.css';
 
 const SongCard = ({ recs }) => {
+
+  useEffect(() => {
+    const containers = document.querySelectorAll('.container');
+    containers.forEach((container, index) => {
+      setTimeout(() => {
+        container.classList.add ('fade-in-slide-down');
+      }, index * 100);
+    });
+  }, [recs]);
+
   return (
     <div>
       {recs.map((rec) => (
