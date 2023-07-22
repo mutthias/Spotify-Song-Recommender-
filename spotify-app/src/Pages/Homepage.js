@@ -2,13 +2,14 @@ import axios from 'axios';
 import './Homepage.css'
 import { FaSearch } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
+import Player from '../Components/Player';
 
 
 import lofigirl from '../Images/lofigirl.gif'
 
 import React from 'react';
 
-const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs}) => {
+const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) => {
   return (
     <div className='Homepage'>
     
@@ -28,6 +29,8 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs}) => {
         </form>
 
       </div>
+
+      <Player token={token}/>
 
       <div className='About'>
         <h1>Site Usage</h1>

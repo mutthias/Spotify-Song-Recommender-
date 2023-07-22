@@ -1,8 +1,9 @@
 import React from 'react';
 import { useEffect } from 'react';
 import './SongCard.css';
+import Player from './Player';
 
-const SongCard = ({ recs }) => {
+const SongCard = ({ recs, token }) => {
 
   useEffect(() => {
     const containers = document.querySelectorAll('.container');
@@ -19,7 +20,7 @@ const SongCard = ({ recs }) => {
         <div className='container' key={rec.id}>
           <div className='songcard'>
             {rec.album.images.length ? (
-              <img className='album_img' src={rec.album.images[0].url} alt=''/>
+              <img className='album_img' src={rec.album.images[0].url} alt='' />
             ) : (
               <div>No Image</div>
             )}
@@ -27,6 +28,8 @@ const SongCard = ({ recs }) => {
               <div className='song_name'>{rec.name}</div>
               <div className='song_artists'>{rec.artists.map((artist) => artist.name).join(', ')}</div>
             </div>
+            {console.log(rec.uri)}
+            <Player token={token} trackUri={rec.uri} />
           </div>
         </div>
       ))}
