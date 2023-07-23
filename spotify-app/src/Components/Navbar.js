@@ -2,6 +2,7 @@ import axios from 'axios';
 import './Navbar.css'
 import React from 'react';
 import { useEffect, useState } from 'react';
+import Login from './Login';
 
 const Navbar = ({ token, logout }) => {
   const generateRandomString = (length) => {
@@ -64,13 +65,7 @@ const Navbar = ({ token, logout }) => {
       </ul>
 
       <div className='Profile'>
-        {token && pfp ? (
-          <button className='ProfileButton' onClick={logout}>
-            <img className='pfp' src={pfp} alt='' />
-          </button>
-        ) : (
-          <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}&state=${state}`}>Login</a>
-        )}
+        <Login code={token} pfp={pfp}/>
 
       </div>
     </nav>

@@ -7,6 +7,7 @@ import Navbar from './Components/Navbar';
 import SongCard from './Components/SongCard';
 
 
+
 function App() {
 
   // State sets
@@ -68,7 +69,7 @@ function App() {
 
     if (tracksData.length > 0) {
       const trackId = tracksData[0].id;
-      console.log(trackId);
+      console.log(tracksData[0].uri);
       console.log("hi");
 
       const trackFeaturesResponse = await axios.get(
@@ -101,6 +102,7 @@ function App() {
       tempo = getRandomValue(tempo, 50);
       valence = getRandomValue(valence, 0.1);
 
+      
       const RecResponse = await axios.get(
         "https://api.spotify.com/v1/recommendations",
         {
@@ -116,7 +118,7 @@ function App() {
             target_loudness: loudness,
             target_tempo: tempo,
             target_valence: valence,
-            limit: 5,
+            limit: 6,
           },
         }
       );
@@ -152,7 +154,7 @@ function App() {
   // ---------- RENDER FUNCTIONS ----------
   const renderRecs = () => {
     return (
-      <SongCard recs = {recs}/>
+      <SongCard recs = {recs} token={token}/>
     )
   }
   
@@ -174,7 +176,8 @@ function App() {
           searchTracks={searchTracks} 
           setSearchKey={setSearchKey}
           searchKey={searchKey} 
-          renderRecs={renderRecs} 
+          renderRecs={renderRecs}
+          token={token}
           />}>
           <Route path='/Home' element={<Homepage />} />
         </Route>
