@@ -20,8 +20,7 @@ const Navbar = ({ token, logout }) => {
   const AUTH_ENDPOINT = process.env.REACT_APP_AUTH_ENDPOINT;
   const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE;
   const SCOPE = process.env.REACT_APP_SCOPE;
-  console.log(RESPONSE_TYPE)
-  console.log(SCOPE)
+
   const [pfp, setPFP] = useState("");
   
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Player = ({ token}) => {
+const Player = ({ token }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [device, setDevice] = useState('');
 
