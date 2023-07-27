@@ -3,6 +3,7 @@ import './Homepage.css'
 import { FaSearch } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import Player from '../Components/Player';
+import Auth from '../Components/Auth';
 
 
 import lofigirl from '../Images/lofigirl.gif'
@@ -49,6 +50,10 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) =>
           vitae mi. Ut vel condimentum turpis, eget gravida turpis. 
           Donec suscipit purus a efficitur venenatis.
           </p>
+      </div>
+
+      <div>
+        <Auth/>
       </div>
     </div>
   )
