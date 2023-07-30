@@ -11,6 +11,7 @@ import lofigirl from '../Images/lofigirl.gif'
 import React from 'react';
 
 const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) => {
+
   return (
     <div className='Homepage'>
     
@@ -31,7 +32,7 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) =>
 
       </div>
 
-      <Player token={token}/>
+      <Player accessToken={token}/>
 
       <div className='About'>
         <h1>Site Usage</h1>
@@ -53,7 +54,7 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) =>
       </div>
 
       <div>
-        <Auth/>
+
       </div>
     </div>
   )

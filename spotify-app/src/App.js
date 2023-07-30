@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homepage from './Pages/Homepage';
 import Navbar from './Components/Navbar';
 import SongCard from './Components/SongCard';
-
+import Auth from './Components/Auth';
 
 
 function App() {
@@ -21,11 +21,22 @@ function App() {
 
   // Only true if a token exists. Otherwise nothing will display 
   const search_display = !!token
+  
+
+  const updateAccessToken = (newAccessToken) => {
+    setToken(newAccessToken);
+  };
 
   // Log the user in. Grab the token from the URL
   useEffect(() => {
     const hash = window.location.hash 
     let token = window.localStorage.getItem("token")
+    if (token) {
+      console.log(token)
+      console.log("token was found!")
+    } else {
+      console.log('no token yet!')
+    }
 
     if (!token && hash) {
       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
@@ -182,7 +193,7 @@ function App() {
           <Route path='/Home' element={<Homepage />} />
         </Route>
       </Routes>
-      
+      <Auth updateAccessToken={updateAccessToken} />
       </div>
     </Router>
   );

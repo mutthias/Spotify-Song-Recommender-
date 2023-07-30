@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import Player from './Player';
 
 const Auth = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -16,9 +16,6 @@ const Auth = () => {
   const [error, setError] = useState('');
 
   const [serverResponse, setServerResponse] = useState('');
-
-  const code = new URLSearchParams(window.location.search).get("access_token")
-  console.log(code)
 
   useEffect(() => {
 
@@ -36,14 +33,13 @@ const Auth = () => {
     const access_token = params.access_token || '';
     const refresh_token = params.refresh_token || '';
     const error = params.error || '';
-    console.log(access_token)
-    console.log("this is the access token")
     
 
     if (error) {
       setError('There was an error during the authentication');
     } else {
       if (access_token) {
+        
         setAccessToken(access_token);
         setRefreshToken(refresh_token);
 
@@ -53,10 +49,7 @@ const Auth = () => {
             'Authorization': 'Bearer ' + access_token
           }
         })
-        .then(response => {
-          response.json();
-          console.log(response)
-        })
+        .then(response => response.json())
         .then(data => {
           setLoggedIn(true);
           setDisplayName(data.display_name || '');
@@ -66,14 +59,16 @@ const Auth = () => {
           setHref(data.href || '');
           setProfileImage(data.images[0]?.url || '');
           setCountry(data.country || '');
-        })
-        .catch(err => {
-          setError('Failed to fetch user profile from Spotify API');
-          console.error(err);
-        });
+
+        // Console log the email for testing purposes
+        console.log('User email:', data.email);
+      })
+      .catch(err => {
+        setError('Failed to fetch user profile from Spotify API');
+        console.error(err);
+      });
       }
-      console.log(email)
-      console.log("testing")
+
     }
   }, []);
 
@@ -123,6 +118,7 @@ const Auth = () => {
           Obtain new token using the refresh token
         </button>
       </div>
+      <Player accessToken={accessToken} trackUri={'spotify:track:10gvzlGLv9gEgfHORWtc1C'}/>
     </div>
   );
 };
