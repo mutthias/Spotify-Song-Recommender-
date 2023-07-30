@@ -2,14 +2,15 @@ import axios from 'axios';
 import React from 'react'
 import { useState, useEffect } from 'react';
 
-export default function useAuth(code) {
+
+const UseAuth = () => {
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState();
 
   useEffect(() => {
-    axios.post('https://localhost:3001/login', {
-      code,
+    axios.post('https://localhost:8888/login', {
+      
     }).then(res => {
       console.log("hello!!")
       setAccessToken(res.data.accessToken)
@@ -21,9 +22,13 @@ export default function useAuth(code) {
       window.location = '#'
       
     })
-  }, [code])
+  }, [])
 
   return (
-    accessToken
+    <div>
+      <p>hey</p>
+    </div>
   )
 }
+
+export default UseAuth;

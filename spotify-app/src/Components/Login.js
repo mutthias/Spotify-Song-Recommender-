@@ -1,5 +1,5 @@
 import React from "react";
-import useAuth from "./useAuth"
+import UseAuth from "./UseAuth"
 import '../Components/Login.css';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -26,7 +26,7 @@ const Login = ({ pfp }) => {
 
     </button>
    : 
-    <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}`}>Login</a>
+    <a href="">Login</a>
   )
 }
 

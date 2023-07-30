@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 const Auth = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [displayName, setDisplayName] = useState('');
@@ -14,7 +15,13 @@ const Auth = () => {
   const [refreshToken, setRefreshToken] = useState('');
   const [error, setError] = useState('');
 
+  const [serverResponse, setServerResponse] = useState('');
+
+  const code = new URLSearchParams(window.location.search).get("access_token")
+  console.log(code)
+
   useEffect(() => {
+
     function getHashParams() {
       var hashParams = {};
       var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -29,6 +36,9 @@ const Auth = () => {
     const access_token = params.access_token || '';
     const refresh_token = params.refresh_token || '';
     const error = params.error || '';
+    console.log(access_token)
+    console.log("this is the access token")
+    
 
     if (error) {
       setError('There was an error during the authentication');
@@ -43,7 +53,10 @@ const Auth = () => {
             'Authorization': 'Bearer ' + access_token
           }
         })
-        .then(response => response.json())
+        .then(response => {
+          response.json();
+          console.log(response)
+        })
         .then(data => {
           setLoggedIn(true);
           setDisplayName(data.display_name || '');
@@ -59,6 +72,8 @@ const Auth = () => {
           console.error(err);
         });
       }
+      console.log(email)
+      console.log("testing")
     }
   }, []);
 
@@ -66,7 +81,8 @@ const Auth = () => {
     <div className="container">
       <div id="login" style={{ display: loggedIn ? 'none' : 'block' }}>
         <h1>This is an example of the Authorization Code flow</h1>
-        <a href="/login" className="btn btn-primary">Log in with Spotify</a>
+        <a href="http://localhost:8888/login" className="btn btn-primary">Log in with Spotify</a>
+        <a href='http://localhost:8888/api/test'>test that the server works!</a>
       </div>
       <div id="loggedin" style={{ display: loggedIn ? 'block' : 'none' }}>
         <div id="user-profile">
