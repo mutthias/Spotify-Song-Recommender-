@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Player from './Player';
 
 const Auth = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -80,29 +79,7 @@ const Auth = () => {
         <a href='http://localhost:8888/api/test'>test that the server works!</a>
       </div>
       <div id="loggedin" style={{ display: loggedIn ? 'block' : 'none' }}>
-        <div id="user-profile">
-          {loggedIn && (
-            <div>
-              <h1>Logged in as {displayName}</h1>
-              <div className="media">
-                <div className="pull-left">
-                  <img className="media-object" width="150" src={profileImage} alt="Profile" />
-                </div>
-                <div className="media-body">
-                  <dl className="dl-horizontal">
-                    <dt>Display name</dt><dd className="clearfix">{displayName}</dd>
-                    <dt>Id</dt><dd>{userId}</dd>
-                    <dt>Email</dt><dd>{email}</dd>
-                    <dt>Spotify URI</dt><dd><a href={spotifyURI}>{spotifyURI}</a></dd>
-                    <dt>Link</dt><dd><a href={href}>{href}</a></dd>
-                    <dt>Profile Image</dt><dd className="clearfix"><a href={profileImage}>{profileImage}</a></dd>
-                    <dt>Country</dt><dd>{country}</dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        
         <div id="oauth">
           {loggedIn && (
             <div>
@@ -118,7 +95,6 @@ const Auth = () => {
           Obtain new token using the refresh token
         </button>
       </div>
-      <Player accessToken={accessToken} trackUri={'spotify:track:10gvzlGLv9gEgfHORWtc1C'}/>
     </div>
   );
 };

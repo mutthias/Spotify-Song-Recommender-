@@ -48,3 +48,12 @@
 .song_artists {
   color: #C6DABF;
 }
+
+.player_container {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  margin: 0 auto;
+  border: 2px solid #1a1a1a; 
+  transition: background-color 0.3s ease; /* Add a smooth transition for background color */
+}

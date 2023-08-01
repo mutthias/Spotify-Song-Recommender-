@@ -6,6 +6,7 @@ import Homepage from './Pages/Homepage';
 import Navbar from './Components/Navbar';
 import SongCard from './Components/SongCard';
 import Auth from './Components/Auth';
+import Player from './Components/Player';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   // State sets
   const [token, setToken] = useState("")
   const [searchKey, setSearchKey] = useState("")
+  const [selectedTrackUri, setSelectedTrackUri] = useState(null);
   const [artists, setArtists] = useState([])
   const [tracks, setTracks] = useState([])
   const [recs, setRecs] = useState([])
@@ -129,7 +131,7 @@ function App() {
             target_loudness: loudness,
             target_tempo: tempo,
             target_valence: valence,
-            limit: 6,
+            limit: 5,
           },
         }
       );
@@ -165,7 +167,10 @@ function App() {
   // ---------- RENDER FUNCTIONS ----------
   const renderRecs = () => {
     return (
-      <SongCard recs = {recs} token={token}/>
+      <div>
+        <SongCard recs = {recs} token={token}/>
+        {/* <Player accessToken={token} trackUri={recs.uri} /> */}
+      </div>
     )
   }
   
@@ -189,6 +194,7 @@ function App() {
           searchKey={searchKey} 
           renderRecs={renderRecs}
           token={token}
+
           />}>
           <Route path='/Home' element={<Homepage />} />
         </Route>

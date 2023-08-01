@@ -67,6 +67,7 @@ const Navbar = ({ token, logout }) => {
         <Login code={token} pfp={pfp}/>
 
       </div>
+      
     </nav>
   )
 }

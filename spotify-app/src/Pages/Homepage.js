@@ -11,6 +11,10 @@ import lofigirl from '../Images/lofigirl.gif'
 import React from 'react';
 
 const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) => {
+  const [selectedTrackUri, setSelectedTrackUri] = useState(null);
+  const handleSelectTrack = (uri) => {
+    setSelectedTrackUri(uri);
+  };
 
   return (
     <div className='Homepage'>
@@ -29,10 +33,11 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) =>
             {renderRecs()}
           </div>
         </form>
-
+        <div className='player'> <Player accessToken={token} trackUri={selectedTrackUri}/></div>
+        
       </div>
 
-      <Player accessToken={token}/>
+      {/* <Player accessToken={token} trackUri={'spotify:track:2yjDmSX8ukT00SXmRs04T6'}/> */}
 
       <div className='About'>
         <h1>Site Usage</h1>

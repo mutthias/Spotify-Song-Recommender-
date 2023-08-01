@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import './SongCard.css';
 import Player from './Player';
 
-const SongCard = ({ recs, token }) => {
+const SongCard = ({ recs, token, onTrackSelected }) => {
+
+  const [uri, setURI] = useState('');
 
   useEffect(() => {
     const containers = document.querySelectorAll('.container');
@@ -13,6 +15,11 @@ const SongCard = ({ recs, token }) => {
       }, index * 100);
     });
   }, [recs]);
+
+  const handlePlayClick = (uri) => {
+    setURI(uri);
+    onTrackSelected(uri);
+  };
 
   return (
     <div>
@@ -28,11 +35,16 @@ const SongCard = ({ recs, token }) => {
               <div className='song_name'>{rec.name}</div>
               <div className='song_artists'>{rec.artists.map((artist) => artist.name).join(', ')}</div>
             </div>
-            {console.log(rec.uri)}
-            <Player token={token} trackUri={rec.uri} />
+            <div className='play_me' onClick={() => handlePlayClick(rec.uri)}>
+              Play Me!
+            </div>
           </div>
         </div>
+        
       ))}
+      {/* <div className='player_container'><Player accessToken={token} trackUri={uri}/></div> */}
+      
+      
     </div>
   );
 }
