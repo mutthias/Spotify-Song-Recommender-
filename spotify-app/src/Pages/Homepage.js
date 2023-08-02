@@ -1,19 +1,27 @@
-import axios from 'axios';
+import React from 'react';
 import './Homepage.css'
 import { FaSearch } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import Player from '../Components/Player';
 import Auth from '../Components/Auth';
-
-
 import lofigirl from '../Images/lofigirl.gif'
 
-import React from 'react';
 
-const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) => {
-  const [selectedTrackUri, setSelectedTrackUri] = useState(null);
-  const handleSelectTrack = (uri) => {
-    setSelectedTrackUri(uri);
+const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token, recs}) => {
+
+  useEffect(() => {
+    const containers = document.querySelectorAll('.container');
+    containers.forEach((container, index) => {
+      setTimeout(() => {
+        container.classList.add ('fade-in-slide-down');
+      }, index * 100);
+    });
+  }, [recs]);
+
+  const [uri, setURI] = useState('');
+  const handlePlayClick = (uri) => {
+    setURI(uri);
+    console.log(uri)
   };
 
   return (
@@ -30,10 +38,29 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token}) =>
             <button className='search_button' type={'submit'} disabled={!searchKey.trim()}><FaSearch color="#fff" size={20}/></button>
           </div>
           <div className="results">
-            {renderRecs()}
+            {recs.map((rec) => (
+              <div className='container' key={rec.id}>
+                <div className='songcard'>
+                  {rec.album.images.length ? (
+                    <img className='album_img' src={rec.album.images[0].url} alt='' />
+                  ) : (
+                    <div>No Image</div>
+                  )}
+                  <div className='song_info'>
+                    <div className='song_name'>{rec.name}</div>
+                    <div className='song_artists'>{rec.artists.map((artist) => artist.name).join(', ')}</div>
+                  </div>
+                  <div className='play_me' onClick={() => handlePlayClick(rec.uri)}>
+                    Play Me!
+                    {/* <Play URI = {uri}/> */}
+                  </div>
+                </div>
+              </div>
+            
+            ))}
           </div>
         </form>
-        <div className='player'> <Player accessToken={token} trackUri={selectedTrackUri}/></div>
+        <div className='player'> <Player accessToken={token} trackUri={uri}/></div>
         
       </div>
 

@@ -6,7 +6,7 @@ import Homepage from './Pages/Homepage';
 import Navbar from './Components/Navbar';
 import SongCard from './Components/SongCard';
 import Auth from './Components/Auth';
-import Player from './Components/Player';
+import Play from './Components/Play';
 
 
 function App() {
@@ -169,7 +169,6 @@ function App() {
     return (
       <div>
         <SongCard recs = {recs} token={token}/>
-        {/* <Player accessToken={token} trackUri={recs.uri} /> */}
       </div>
     )
   }
@@ -194,6 +193,7 @@ function App() {
           searchKey={searchKey} 
           renderRecs={renderRecs}
           token={token}
+          recs={recs}
 
           />}>
           <Route path='/Home' element={<Homepage />} />
