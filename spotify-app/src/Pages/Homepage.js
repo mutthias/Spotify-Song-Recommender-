@@ -1,13 +1,14 @@
 import React from 'react';
 import './Homepage.css'
 import { FaSearch } from 'react-icons/fa';
+import { FaPlayCircle } from 'react-icons/fa'
 import { useEffect, useState } from 'react';
 import Player from '../Components/Player';
-import Auth from '../Components/Auth';
 import lofigirl from '../Images/lofigirl.gif'
 
 
-const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token, recs}) => {
+
+const Homepage = ({searchTracks, setSearchKey, searchKey, token, recs}) => {
 
   useEffect(() => {
     const containers = document.querySelectorAll('.container');
@@ -51,8 +52,7 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, renderRecs, token, rec
                     <div className='song_artists'>{rec.artists.map((artist) => artist.name).join(', ')}</div>
                   </div>
                   <div className='play_me' onClick={() => handlePlayClick(rec.uri)}>
-                    Play Me!
-                    {/* <Play URI = {uri}/> */}
+                    <FaPlayCircle  size={20}/>
                   </div>
                 </div>
               </div>

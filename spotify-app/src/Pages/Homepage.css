@@ -125,5 +125,16 @@ form {
   margin: 0 auto;
   border: 2px solid #1a1a1a; 
   transition: background-color 0.3s ease;
+}
 
+.play_me {
+  position: absolute;
+  right: 32px; /* Adjust this value to set the distance from the right edge */
+  top: 45%;
+  transform: translateY(-50%); /* Center vertically */
+  cursor: pointer;
+}
+
+.play_me svg{
+  
 }

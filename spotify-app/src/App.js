@@ -6,7 +6,7 @@ import Homepage from './Pages/Homepage';
 import Navbar from './Components/Navbar';
 import SongCard from './Components/SongCard';
 import Auth from './Components/Auth';
-import Play from './Components/Play';
+// import Play from './Components/Play';
 
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
   const updateAccessToken = (newAccessToken) => {
     setToken(newAccessToken);
   };
-
+ 
   // Log the user in. Grab the token from the URL
   useEffect(() => {
     const hash = window.location.hash 

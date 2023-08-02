@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import './SongCard.css';
-import Play from './Play';
+
+
 import Player from './Player';
 
 const SongCard = ({ recs, token, onTrackSelected }) => {
@@ -37,8 +38,8 @@ const SongCard = ({ recs, token, onTrackSelected }) => {
               <div className='song_artists'>{rec.artists.map((artist) => artist.name).join(', ')}</div>
             </div>
             <div className='play_me' onClick={() => handlePlayClick(rec.uri)}>
-              Play Me!
-              {/* <Play URI = {uri}/> */}
+              
+
             </div>
           </div>
         </div>
