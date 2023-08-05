@@ -41,6 +41,7 @@ const Auth = () => {
         
         setAccessToken(access_token);
         setRefreshToken(refresh_token);
+        window.localStorage.setItem("REALtoken", access_token)
 
         // Fetch user profile data from Spotify API
         fetch('https://api.spotify.com/v1/me', {

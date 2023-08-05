@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homepage from './Pages/Homepage';
+import TopTracks from './Pages/TopTracks';
 import Navbar from './Components/Navbar';
 import SongCard from './Components/SongCard';
 import Auth from './Components/Auth';
@@ -187,17 +188,23 @@ function App() {
       <div className='App'>
       <Navbar token={token} logout={logout}/>
       <Routes>
-        <Route path="/" element={<Homepage 
+        <Route exact path="/" element={<Homepage 
           searchTracks={searchTracks} 
           setSearchKey={setSearchKey}
           searchKey={searchKey} 
           renderRecs={renderRecs}
           token={token}
           recs={recs}
-
-          />}>
-          <Route path='/Home' element={<Homepage />} />
-        </Route>
+          />}/>
+        <Route exact path="/Home" element={<Homepage 
+          searchTracks={searchTracks} 
+          setSearchKey={setSearchKey}
+          searchKey={searchKey} 
+          renderRecs={renderRecs}
+          token={token}
+          recs={recs}
+          />}/>
+        <Route exact path='/Top-Tracks' element={<TopTracks token={token} />} />
       </Routes>
       <Auth updateAccessToken={updateAccessToken} />
       </div>
