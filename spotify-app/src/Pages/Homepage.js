@@ -5,6 +5,7 @@ import { FaPlayCircle } from 'react-icons/fa'
 import { useEffect, useState } from 'react';
 import Player from '../Components/Player';
 import lofigirl from '../Images/lofigirl.gif'
+import Navbar from '../Components/Navbar';
 
 
 
@@ -27,7 +28,7 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, token, recs}) => {
 
   return (
     <div className='Homepage'>
-    
+      <Navbar token={token} style={{ position: 'absolute' }} />
       <div className="gif-container">
         <div className="overlay"></div>
         <img src={lofigirl} alt="GIF"/>

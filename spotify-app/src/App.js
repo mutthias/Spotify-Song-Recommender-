@@ -186,7 +186,7 @@ function App() {
   return (
     <Router>
       <div className='App'>
-      <Navbar token={token} logout={logout}/>
+      
       <Routes>
         <Route exact path="/" element={<Homepage 
           searchTracks={searchTracks} 
@@ -195,7 +195,7 @@ function App() {
           renderRecs={renderRecs}
           token={token}
           recs={recs}
-          />}/>
+          />} />
         <Route exact path="/Home" element={<Homepage 
           searchTracks={searchTracks} 
           setSearchKey={setSearchKey}

@@ -1,0 +1,20 @@
+.ttc_container {
+  background-color: #F3E9D2;
+  display: inline-block;
+}
+
+.ttc_img {
+  width: 25%;
+}
+
+.ttc_trackname {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.ttc_artistname {
+  font-size: 12px;
+  margin: 0;
+}
+
