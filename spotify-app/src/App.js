@@ -20,6 +20,9 @@ function App() {
   const [tracks, setTracks] = useState([])
   const [recs, setRecs] = useState([])
   const [trackFeatures, setTrackFeatures] = useState(null);
+  const [alltime, setAlltime] = useState([])
+  const [fourmonths, setFourmonths] = useState([])
+  const [twoweeks, setTwoweeks] = useState([])
   const [] = useState([])
 
   // Only true if a token exists. Otherwise nothing will display 
@@ -33,10 +36,9 @@ function App() {
   // Log the user in. Grab the token from the URL
   useEffect(() => {
     const hash = window.location.hash 
-    let token = window.localStorage.getItem("token")
+    let token = window.localStorage.getItem("REALtoken")
     if (token) {
-      console.log(token)
-      console.log("token was found!")
+      console.log('token found!')
     } else {
       console.log('no token yet!')
     }
@@ -182,6 +184,9 @@ function App() {
       </div>
     ))
   }
+
+  // ---------- TOP ITEM FUNCTIONS -----------
+
 
   return (
     <Router>

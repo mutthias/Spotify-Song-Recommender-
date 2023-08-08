@@ -1,6 +1,7 @@
 .ttc_container {
   background-color: #F3E9D2;
   display: inline-block;
+  width: 25%;
 }
 
 .ttc_img {

@@ -8,3 +8,8 @@
   top: 100px;
   position: absolute;
 }
+
+.tt_container h1 {
+  display: flex;
+  padding-left: 80px;
+}
