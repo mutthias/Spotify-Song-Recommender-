@@ -1,27 +1,21 @@
-.ttc_container {
+.tac_container {
   background-color: #F3E9D2;
   display: inline-block;
   width: 35%;
 }
 
-.ttc_img {
+.tac_img {
   width: 100%;
 }
 
-.ttc_trackname {
+.tac_name {
   font-size: 16px;
   margin: 0;
   color: black;
   font-weight: 700;
 }
 
-.ttc_artistname {
-  font-size: 12px;
-  color: black;
-  margin: 0;
-}
-
-.ttc_a a {
+.tac_a a {
   text-decoration: none;
   color: black;
 }

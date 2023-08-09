@@ -3,17 +3,19 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import TopTrackCard from '../Components/TopTrackCard';
+import TopArtistCard from '../Components/TopArtistCard';
 import './TopTracks.css';
 import Navbar from '../Components/Navbar';
 
 
-const TopTracks = ( { token } ) => {
+const TopArtists = ( { token } ) => {
 
   const [alltime, setAlltime] = useState([]);
   const [sixmonths, setSixmonths] = useState([]);
   const [fourweeks, setFourweeks] = useState([]);
   const [loaded, setLoaded] = useState(false);
+
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     setLoaded(false);
@@ -24,7 +26,7 @@ const TopTracks = ( { token } ) => {
     async function fetchData() {
       try {
         const { data: alltimeData } = await axios.get(
-          "https://api.spotify.com/v1/me/top/tracks",
+          "https://api.spotify.com/v1/me/top/artists",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -37,7 +39,7 @@ const TopTracks = ( { token } ) => {
         );
 
         const { data: sixMonthsData } = await axios.get(
-          "https://api.spotify.com/v1/me/top/tracks",
+          "https://api.spotify.com/v1/me/top/artists",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -50,7 +52,7 @@ const TopTracks = ( { token } ) => {
         );
 
         const { data: fourWeeksData } = await axios.get(
-          "https://api.spotify.com/v1/me/top/tracks",
+          "https://api.spotify.com/v1/me/top/artists",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -74,6 +76,7 @@ const TopTracks = ( { token } ) => {
     setLoaded(true);
   }, [token]);
 
+  console.log(fourweeks)
 
   return (
     
@@ -86,9 +89,9 @@ const TopTracks = ( { token } ) => {
         <h1 className='tt_h1'>
           Last 4 weeks
         </h1>
-        <Slider dots={true} infinite={true} speed={300}  slidesToShow={5}>
-          {loaded && fourweeks.map((song, index) => (
-            <TopTrackCard index={index} song={song}/>
+        <Slider dots={true} infinite={true} speed={500}  slidesToShow={5}>
+          {loaded && fourweeks.map((artist, index) => (
+            <TopArtistCard index={index} artist={artist}/>
           ))}
         </Slider>
       </div>
@@ -97,8 +100,9 @@ const TopTracks = ( { token } ) => {
           Last 6 Months
         </h1>
         <Slider dots={true} infinite={true} speed={500}  slidesToShow={5}>
-          {loaded && sixmonths.map((song, index) => (
-            <TopTrackCard index={index} song={song}/>
+          {loaded && sixmonths.map((artist, index) => (
+          <TopArtistCard index={index} artist={artist}/>
+
           ))}
         </Slider>
       </div>
@@ -107,8 +111,8 @@ const TopTracks = ( { token } ) => {
           All Time
         </h1>
         <Slider dots={true} infinite={true} speed={500}  slidesToShow={5}>
-          {loaded && alltime.map((song, index) => (
-            <TopTrackCard index={index} song={song}/>
+          {loaded && alltime.map((artist, index) => (
+            <TopArtistCard index={index} artist={artist}/>
           ))}
         </Slider>
       </div>
@@ -116,4 +120,4 @@ const TopTracks = ( { token } ) => {
   )
 }
 
-export default TopTracks
+export default TopArtists

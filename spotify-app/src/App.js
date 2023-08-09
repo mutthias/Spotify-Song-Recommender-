@@ -4,9 +4,9 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homepage from './Pages/Homepage';
 import TopTracks from './Pages/TopTracks';
+import TopArtists from './Pages/TopArtists';
 import Navbar from './Components/Navbar';
 import SongCard from './Components/SongCard';
-import Auth from './Components/Auth';
 // import Play from './Components/Play';
 
 
@@ -210,8 +210,9 @@ function App() {
           recs={recs}
           />}/>
         <Route exact path='/Top-Tracks' element={<TopTracks token={token} />} />
+        <Route exact path='/Top-Artists' element={<TopArtists token={token} />} />
       </Routes>
-      <Auth updateAccessToken={updateAccessToken} />
+      {/* <Auth updateAccessToken={updateAccessToken} /> */}
       </div>
     </Router>
   );
