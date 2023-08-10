@@ -68,22 +68,62 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, token, recs}) => {
       {/* <Player accessToken={token} trackUri={'spotify:track:2yjDmSX8ukT00SXmRs04T6'}/> */}
 
       <div className='About'>
-        <h1>Site Usage</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Sed cursus faucibus mauris, vitae efficitur sem bibendum in. 
-          Mauris sed tincidunt lorem. Sed non fringilla leo. 
-          Fusce id ligula nec nulla scelerisque pulvinar. 
-          Sed vehicula risus vitae urna mollis auctor. 
-          Nam eget tortor nec turpis finibus efficitur. 
-          Proin semper diam et elit consectetur, nec viverra turpis aliquam. 
-          Curabitur consequat interdum augue, a tincidunt leo consectetur eget.</p>
+        <h1>What is this site?</h1>
+        <p>
+          As someone who loves listening to music, I constantly want to find new music
+          to add to my playlists. Quite often, I find a song that I <b>really</b> like,
+          and I want to find songs that are similar to it. Of course, Spotify has the 
+          option of generating a song radio for that song, however the songs suggested
+          often are either songs I already know, or just are not good recommendations.
+          Out of the 50 songs in that radio, maybe at max 10 of them are decent suggestions.
+        </p>
           <p>
-          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere 
-          cubilia curae; Mauris feugiat rutrum congue. Pellentesque suscipit, metus 
-          id egestas suscipit, lectus erat lobortis est, nec tristique enim risus 
-          vitae mi. Ut vel condimentum turpis, eget gravida turpis. 
-          Donec suscipit purus a efficitur venenatis.
+          I wanted to be able to find new music; new music that I know I will enjoy based on
+          my recent listening. I was able to use the Spotify API to allow the user to search
+          a song they really like, and generate songs that actually match the song they inputted,
+          rather than suggestions that sometimes feel "random".
           </p>
+          <h1>How does it work?</h1>
+          <p>
+            The API provides track attributes for each of Spotify's tracks. This can range from
+            acousticness, energy, tempo, and more. I took what I thought were the most significant
+            attributes for a track, and had the API provide recommendations based around those attributes.
+            So, when you input a song, the API will take that song's specific attributes and use them as
+            search parameters for when it generates its recommendations.
+          </p>
+          <p>
+            For example, if you enjoy the song "love." by Wave to Earth, it'll do its best to provide you 4-5 tracks
+            that are just like it. You can search the same song multiple times and it'll generate a new list of tracks
+            so that you can milk out as many similar tracks as possible until you've seen all the possible results
+            of one song.
+          </p>
+          <h1>A Technical Problem!</h1>
+          <p>
+            One problem of the algorithm to search for songs was that when searching for a track, the numerical values
+            for each attribute were always the same when searching, therefore reusing the same track in the search
+            would not provide any variety to the results.
+          </p>
+          <p>
+            To fix this, I instead took the numerical values of the attributes, and randomized them within a range of 
+            +5 and -5. For example, if acousticness = 50, a random value between 45-55 will be used at the set value
+            for the acousticness value in the recommendations. This allows for a larger variety. One attribute, tempo,
+            has a much larger range because the tempo of many songs vary too much, that if kept within the +/-5 range,
+            it actually would significantly reduce the amount of unique results.
+          </p>
+          <h1>Final Thoughts!</h1>
+          <p>
+            Overall, this was the most enjoyable project I've worked on. I was able to practice my frontend skills, 
+            from starting with a Figma UI design, and then being able to implement my design in React. Furthermore,
+            this was my first experience working with backend! To make all the features I wanted functional, I 
+            had to learn how to use a Node.js and Express based server on the backend, as well as creating a proper
+            OAuth flow in order to gain access to a user's personal information from their Spotify account. 
+          </p>
+          <p>
+            Most importantly, I got to create something that I and other people can actually use. Music is a
+            such an essential part of my life that I'm glad that I have something that allows me to extend upon
+            it whenever I please. Anyways, thank you for reading and to whomever is using this, please enjoy! ヽ(•‿•)ノ
+          </p>
+          
       </div>
 
       <div>
