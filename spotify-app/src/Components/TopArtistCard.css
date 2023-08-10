@@ -4,6 +4,10 @@
   width: 35%;
 }
 
+.tac_container img {
+  border-radius: 50%;
+}
+
 .tac_img {
   width: 100%;
 }
