@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Homepage from './Pages/Homepage';
 import TopTracks from './Pages/TopTracks';
 import TopArtists from './Pages/TopArtists';
@@ -10,7 +11,7 @@ import SongCard from './Components/SongCard';
 // import Play from './Components/Play';
 
 
-function App() {
+const App = () => {
 
   // State sets
   const [token, setToken] = useState("")
@@ -24,6 +25,7 @@ function App() {
   const [fourmonths, setFourmonths] = useState([])
   const [twoweeks, setTwoweeks] = useState([])
   const [] = useState([])
+  const [loggedin, setLoggedIn] = useState(false)
 
   // Only true if a token exists. Otherwise nothing will display 
   const search_display = !!token
@@ -36,19 +38,15 @@ function App() {
   // Log the user in. Grab the token from the URL
   useEffect(() => {
     const hash = window.location.hash 
-    let token = window.localStorage.getItem("REALtoken")
+    let token = window.localStorage.getItem("token")
     if (token) {
       console.log('token found!')
+      setToken(token)
+      setLoggedIn(true)
     } else {
       console.log('no token yet!')
     }
 
-    if (!token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-      window.location.hash = ""
-      window.localStorage.setItem("token", token)
-    }
-    setToken(token)
   }, [])
 
   const logout = () => {
@@ -200,6 +198,7 @@ function App() {
           renderRecs={renderRecs}
           token={token}
           recs={recs}
+          login={loggedin}
           />} />
         <Route exact path="/Home" element={<Homepage 
           searchTracks={searchTracks} 
@@ -208,9 +207,10 @@ function App() {
           renderRecs={renderRecs}
           token={token}
           recs={recs}
+          login={loggedin}
           />}/>
-        <Route exact path='/Top-Tracks' element={<TopTracks token={token} />} />
-        <Route exact path='/Top-Artists' element={<TopArtists token={token} />} />
+        <Route exact path='/Top-Tracks' element={<TopTracks token={token} login={loggedin} />} />
+        <Route exact path='/Top-Artists' element={<TopArtists token={token} login={loggedin} />} />
       </Routes>
       {/* <Auth updateAccessToken={updateAccessToken} /> */}
       </div>

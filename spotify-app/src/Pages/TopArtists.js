@@ -8,7 +8,7 @@ import './TopTracks.css';
 import Navbar from '../Components/Navbar';
 
 
-const TopArtists = ( { token } ) => {
+const TopArtists = ( { token, login } ) => {
 
   const [alltime, setAlltime] = useState([]);
   const [sixmonths, setSixmonths] = useState([]);
@@ -82,7 +82,7 @@ const TopArtists = ( { token } ) => {
     
     <div className='tt_container'>
       <div className='testing'>
-      <Navbar token={token} style={{ position: 'absolute' }} />
+      <Navbar token={token} login={login} style={{ position: 'absolute' }} />
       </div>
 
       <div className='slider'>

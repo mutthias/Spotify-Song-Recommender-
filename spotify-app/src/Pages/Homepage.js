@@ -9,7 +9,9 @@ import Navbar from '../Components/Navbar';
 
 
 
-const Homepage = ({searchTracks, setSearchKey, searchKey, token, recs}) => {
+const Homepage = ({searchTracks, setSearchKey, searchKey, token, recs, login}) => {
+
+  const [pfp, setPfp] = useState([]);
 
   useEffect(() => {
     const containers = document.querySelectorAll('.container');
@@ -18,6 +20,9 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, token, recs}) => {
         container.classList.add ('fade-in-slide-down');
       }, index * 100);
     });
+
+    
+
   }, [recs]);
 
   const [uri, setURI] = useState('');
@@ -28,7 +33,7 @@ const Homepage = ({searchTracks, setSearchKey, searchKey, token, recs}) => {
 
   return (
     <div className='Homepage'>
-      <Navbar token={token} style={{ position: 'absolute' }} />
+      <Navbar token={token} login={login} style={{ position: 'absolute' }} />
       <div className="gif-container">
         <div className="overlay"></div>
         <img src={lofigirl} alt="GIF"/>

@@ -1,10 +1,8 @@
-import axios from 'axios';
 import './Navbar.css'
 import React from 'react';
 import { useEffect, useState } from 'react';
-import Login from './Login';
 
-const Navbar = ({ token, logout }) => {
+const Navbar = ({ token, logout, login }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [displayName, setDisplayName] = useState('');
   const [userId, setUserId] = useState('');
@@ -22,7 +20,7 @@ const Navbar = ({ token, logout }) => {
 
   const [serverResponse, setServerResponse] = useState('');
   
-
+  
 
   useEffect(() => {
 
@@ -45,8 +43,7 @@ const Navbar = ({ token, logout }) => {
     if (error) {
       setError('There was an error during the authentication');
     } else {
-      if (access_token) {
-        
+      if (token) {
         setAccessToken(access_token);
         setRefreshToken(refresh_token);
         window.localStorage.setItem("REALtoken", access_token)
@@ -54,7 +51,7 @@ const Navbar = ({ token, logout }) => {
         // Fetch user profile data from Spotify API
         fetch('https://api.spotify.com/v1/me', {
           headers: {
-            'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + token
           }
         })
         .then(response => response.json())
@@ -78,9 +75,14 @@ const Navbar = ({ token, logout }) => {
         console.error(err);
       });
       }
-
+      const hash = window.location.hash 
+      if (!token && hash) {
+        token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+        window.location.hash = ""
+        window.localStorage.setItem("token", token)
+      }
     }
-  }, []);
+  }, [token]);
 
 
   return (
@@ -103,16 +105,21 @@ const Navbar = ({ token, logout }) => {
           <a href='/Top-Artists'>Top Artists</a>
         </li>
       </ul>
-
-      {loggedIn ? (
+      {console.log(pfp)}
+      {token ? (
         <div className='Profile'>
           <a href={uri}>
-            <img className='pfp' src={pfp[0].url} alt="User Profile" />
+            {pfp.length > 0 && pfp[0].url ? (
+              <img className='pfp' src={pfp[0].url} alt="User Profile" />
+            ) : (
+              <div>Loading...</div> // You can display a loading message or spinner here
+            )}
           </a>
         </div>
       ) : (
         <div className='Profile'>
           <a href="http://localhost:8888/login" className="btn btn-primary">Log in with Spotify</a>
+          
         </div>
       )}
       
