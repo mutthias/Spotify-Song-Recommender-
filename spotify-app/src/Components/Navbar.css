@@ -10,7 +10,8 @@
   z-index: 2;
   font-weight: 500;
   font-size: 18px;
-  
+  margin: 0 auto;
+  overflow-x: auto;
 }
 
 .Nav ul {
@@ -18,18 +19,23 @@
   display: flex;
   flex-grow: 1;
   justify-content: space-around;
-  padding: 0 10%;
+  padding: 0 0%;
+}
+
+.Nav .directory {
+  padding: 0 5%;
 }
 
 .Nav ul li {
   text-align: center;
+  min-width: 100px;
 }
 
 .Nav ul li a {
   text-decoration: none;
   color: white;
-  padding: 0 0.5rem; /* Adjust as needed */
-
+  padding: 0 0.5rem;
+  white-space: nowrap; 
 }
 
 .Nav .Logo {
@@ -54,4 +60,19 @@
 
 .pfp {
   border-radius: 50%;
+}
+
+
+@media screen and (max-width: 850px) {
+  .Nav .directory {
+    display: none;
+  }
+  .Nav .Logo {
+    margin: 0 auto;
+  }
+  .Nav .Profile {
+    padding: 0 0;
+    color: white;
+    text-align: center;
+  }
 }

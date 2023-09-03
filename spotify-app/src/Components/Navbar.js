@@ -16,27 +16,12 @@ const Navbar = ({ token, logout }) => {
   const [accessToken, setAccessToken] = useState('');
   const [refreshToken, setRefreshToken] = useState('');
   const [error, setError] = useState('');
+  const [pfp, setPfp] = useState([]);
+  const [uri, setUri] = useState('')
+
 
   const [serverResponse, setServerResponse] = useState('');
   
-  // useEffect(() => {
-  //   const fetchProfilePicture = async () => {
-  //     if (token) {
-
-  //       const { data } = await axios.get('https://api.spotify.com/v1/me', {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       console.log(data)
-  //       const pictureUrl = data.images[0].url;
-  //       setPFP(pictureUrl);
-
-  //     }
-  //   };
-
-  //   fetchProfilePicture();
-  // }, [token]);
 
 
   useEffect(() => {
@@ -82,9 +67,11 @@ const Navbar = ({ token, logout }) => {
           setHref(data.href || '');
           setProfileImage(data.images[0]?.url || '');
           setCountry(data.country || '');
+          setPfp(data.images || []);
+          setUri(data.uri || '')
 
         // Console log the email for testing purposes
-        console.log('User email:', data.email);
+        console.log(data);
       })
       .catch(err => {
         setError('Failed to fetch user profile from Spotify API');
@@ -94,6 +81,7 @@ const Navbar = ({ token, logout }) => {
 
     }
   }, []);
+
 
   return (
     <nav className='Nav'>
@@ -116,10 +104,17 @@ const Navbar = ({ token, logout }) => {
         </li>
       </ul>
 
-      <div className='Profile'>
-      <a href="http://localhost:8888/login" className="btn btn-primary">Log in with Spotify</a>
-
-      </div>
+      {loggedIn ? (
+        <div className='Profile'>
+          <a href={uri}>
+            <img className='pfp' src={pfp[0].url} alt="User Profile" />
+          </a>
+        </div>
+      ) : (
+        <div className='Profile'>
+          <a href="http://localhost:8888/login" className="btn btn-primary">Log in with Spotify</a>
+        </div>
+      )}
       
     </nav>
   )
