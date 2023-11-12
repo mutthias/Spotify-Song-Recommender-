@@ -1,3 +1,5 @@
+# I Love Music!!!
+
 Have that one song you love and want to find more tracks just like it? This app does just that! It utilizes a song's attributes
 such as its lyrics, tempo, liveness, energy, etc..., and provides more accurate recommendations of the inputted song! You're also
 able to track what you're top artists/songs are in the last month, six months, and all time.
