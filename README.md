@@ -1,6 +1,6 @@
 # Spotify Song Recommender
 
-If there's one thing I don't like about Spotify, it's Spotify radio. It often gives recommendations that are songs I already
+If there's one thing I think Spotify can improve on, it's Spotify radio. It often gives recommendations that are songs I already
 have saved, or just seem completely unrelated to the original song! So I decided to do something about it.
 
 Using the Spotify API, I utilized song attributes such as its lyrics, tempo, liveness, energy, etc..., and provided more accurate 
