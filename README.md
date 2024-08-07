@@ -11,5 +11,7 @@ This was inspired after I was trying to find more songs similar to "love." by wa
 that I already knew or just weren't related at all. This app I developed allowed me to find tracks that actually sounded just like it and weren't
 just some random track recommendation based on my overall listening activity.
 
+Of course, recommendations aren't always perfect, so I made it so that I could refresh the results to give me a set of new tracks.
+
 This fullstack app was built with React on the frontend, and an Express.js server powered by Node.js on the backend. It utilizes a proper
 OAuth 2.0 flow with both implicit grants and/or token based logins to access user data and play tracks on the webpage. 
